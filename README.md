@@ -19,11 +19,12 @@ no shut<r>
 wr mem</r>
 
 
-cert-server#crypto pki server PKI request pkcs10 terminal<r>
-PKCS10 request in base64 or pem<r>
+cert-server#crypto pki server PKI request pkcs10 terminal</r>
 
-% Enter Base64 encoded or PEM formatted PKCS10 enrollment request.<r>
-% End with a blank line or "quit" on a line by itself.<r>
+%PKCS10 request in base64 or pem</r>
+
+% Enter Base64 encoded or PEM formatted PKCS10 enrollment request.</r>
+% End with a blank line or "quit" on a line by itself.</r>
 % Paste your CSR from the SDWAN or vManager etc..</r>
 
 -----BEGIN CERTIFICATE REQUEST-----<r>
