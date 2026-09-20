@@ -11,8 +11,8 @@ database level complete</r>
 
 issuer-name cn=root.biglab2.local</r>
 
-hash sha256<r>
-database archieve pkcs12 password Cisco!23<r>
+hash sha256</r>
+database archieve pkcs12 password Cisco!23</r>
 grant auto<r>
 no shut<r>
 wr mem</r>
