@@ -1,0 +1,35 @@
+system
+ host-name               validator-2
+ system-ip               1.1.35.2
+ site-id                 35
+ admin-tech-on-failure
+ no route-consistency-check
+ no vrrp-advt-with-phymac
+ sp-organization-name    biglab2
+ organization-name       biglab2
+ vbond 50.1.255.2 local
+! 
+ ntp
+  parent
+   no enable
+   stratum 5
+  exit
+ !
+!
+omp
+ no shutdown
+ graceful-restart
+!
+vpn 0
+ dns 1.1.1.1 secondary
+ dns 40.1.255.253 primary
+ interface eth0
+  ip dhcp-client
+  ipv6 dhcp-client
+  no shutdown
+ !
+ interface ge0/0
+  ip address 50.1.255.2/24
+  tunnel-interface
+   encapsulation ipsec
+   allow-service all
