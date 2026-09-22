@@ -1,10 +1,10 @@
-Make the Cisco router a CA Server automatically issue certificates</r>
+Make the Cisco router a CA Server automatically issue certificates</br>
 
-crypto key gen rsa label PKI mod 2048</r>
-crypto pki server PKI</r>
-database url flash:</r>
-database level complete</r>
-issue-name cn=root.cloud1.local</r>
+crypto key gen rsa label PKI mod 2048</br>
+crypto pki server PKI</br>
+database url flash:</br>
+database level complete</br>
+issue-name cn=root.cloud1.local</br>
 hash sha256</r>
 database archive pkcs12 password Cisco!23</r>
 grant auto</r>
