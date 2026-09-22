@@ -11,6 +11,6 @@ grant auto</br>
 no shut</br>
 
 ! Enter into configuration mode to pull of the root certificate</br>
-config t</ r> 
+config t</br> 
 ! export the root CA certificate to paste into VManager</br>
 crypto pki export PKI pem terminal pem</br>
