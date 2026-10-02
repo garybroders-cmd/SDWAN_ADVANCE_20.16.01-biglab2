@@ -13,7 +13,7 @@ no shut</br>
 ! Enter into configuration mode to pull of the root certificate</br>
 config t</br> 
 ! Export the root CA certificate to paste into VManager</br>
-crypto pki export PKI pem terminal pem</br>
+crypto pki export PKI pem terminal</br>
 
 
 <b>To generate a signed certificate create CSR on the vmanage device or any device in attached to VManager</br>
