@@ -6,7 +6,7 @@ database url flash:</br>
 database level complete</br>
 issuer-name cn=root.cloud1.local</br>
 hash sha256</br>
-database archive pkcs12 password Cisco!23<b/r>
+database archive pkcs12 password Cisco!23<br>
 grant auto</br>
 no shut</br>
 
