@@ -30,9 +30,9 @@ issuer-name cn=root.cloud2.local.org</r>
 
 hash sha256</br>
 database archieve pkcs12 password C#####</br>
-grant auto</r>
-no shutdown</r>
-wr mem</r>
+grant auto</br>
+no shutdown</br>
+wr mem</br>
 
 
 cert-server#crypto pki server PKI request pkcs10 terminal</r>
