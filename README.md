@@ -1,6 +1,5 @@
 # Overview notes
-updates:-</br>
-3/10/2026-</br>
+updates:- 3/10/2026-</br>
 2 Validators-</br>
 3 controllers-</br>
 8 vEdge Routers - to be configured-</br>
