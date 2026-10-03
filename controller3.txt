@@ -1,0 +1,78 @@
+system
+ host-name             controller3
+ system-ip             202.202.202.3
+ site-id               202
+ admin-tech-on-failure
+ no vrrp-advt-with-phymac
+ sp-organization-name  cloud2
+ organization-name     cloud2
+ vbond validator.cloud2.local.org
+ aaa
+  auth-order      local radius tacacs
+  usergroup basic
+   task system read
+   task interface read
+  !
+  usergroup netadmin
+  !
+  usergroup operator
+   task system read
+   task interface read
+   task policy read
+   task routing read
+   task security read
+  !
+  usergroup tenantadmin
+  !
+  user admin
+   password ######
+  !
+  ciscotacro-user true
+  ciscotacrw-user true
+ !
+ logging
+  disk
+   enable
+  !
+ !
+ ntp
+  parent
+   enable
+   stratum 5
+  exit
+  server 39.1.255.123
+   version 4
+  exit
+ !
+!
+omp
+ no shutdown
+ filter-route
+  no outbound affinity-group-preference
+  no outbound tloc-color
+ exit
+ graceful-restart
+ outbound-policy-caching
+!
+vpn 0
+ dns 39.1.255.253 primary
+ interface eth0
+  ip address 40.1.255.3/24
+  ipv6 dhcp-client
+  tunnel-interface
+   color mpls
+   allow-service all
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service stun
+  !
+  no shutdown
+ !
+ ip route 0.0.0.0/0 40.1.255.254
+!
+vpn 512
+!
