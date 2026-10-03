@@ -1,0 +1,90 @@
+
+system
+ host-name               validator2
+ system-ip               202.202.202.4
+ admin-tech-on-failure
+ no route-consistency-check
+ no vrrp-advt-with-phymac
+ sp-organization-name    cloud2
+ organization-name       cloud2
+ vbond validator.cloud2.local.org local
+ aaa
+  auth-order      local radius tacacs
+  usergroup basic
+   task system read
+   task interface read
+  !
+  usergroup netadmin
+  !
+  usergroup operator
+   task system read
+   task interface read
+   task policy read
+   task routing read
+   task security read
+  !
+  usergroup tenantadmin
+  !
+  user admin
+   password #####
+  !
+  ciscotacro-user true
+  ciscotacrw-user true
+ !
+ logging
+  disk
+   enable
+  !
+ !
+ ntp
+  parent
+   enable
+   stratum 5
+  exit
+  server 39.1.255.123
+   version 4
+   prefer
+  exit
+ !
+!
+omp
+ no shutdown
+ graceful-restart
+ advertise connected
+ advertise static
+!
+security
+ ipsec
+  integrity-type ip-udp-esp esp
+ !
+!
+vpn 0
+ dns 39.1.255.253 primary
+ interface ge0/0
+  ip address 40.1.255.4/24
+  ipv6 dhcp-client
+  tunnel-interface
+   encapsulation ipsec
+   allow-service all
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ ip route 0.0.0.0/0 40.1.255.254
+!
+vpn 512
+ interface eth0
+  ip dhcp-client
+  ipv6 dhcp-client
+  no shutdown
+ !
+!
