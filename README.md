@@ -28,10 +28,10 @@ database level complete</r>
 
 issuer-name cn=root.cloud2.local.org</r>
 
-hash sha256</r>
-database archieve pkcs12 password C#####</r>
-grant auto<r>
-no shut<r>
+hash sha256</br>
+database archieve pkcs12 password C#####</br>
+grant auto</r>
+no shutdown</r>
 wr mem</r>
 
 
