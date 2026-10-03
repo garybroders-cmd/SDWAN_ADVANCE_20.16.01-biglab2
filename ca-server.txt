@@ -1,0 +1,114 @@
+!
+! Last configuration change at 14:26:46 GMT Fri Oct 2 2026
+! NVRAM config last updated at 14:44:25 GMT Fri Oct 2 2026
+!
+version 17.3
+!
+hostname ca-server
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+clock timezone GMT 1 0
+!
+!
+ip name-server 39.1.255.253
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+crypto pki server PKI
+ database level complete
+ database archive pkcs12 password 7 096F471A1A0A464058
+ issuer-name cn=root.cloud2.local.org
+ grant auto
+ hash sha256
+ database url flash:
+!
+crypto pki trustpoint TP-self-signed-4201091209
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-4201091209
+ revocation-check none
+ rsakeypair TP-self-signed-4201091209
+!
+crypto pki trustpoint SLA-TrustPoint
+ enrollment pkcs12
+ revocation-check crl
+!
+crypto pki trustpoint PKI
+ revocation-check crl
+ rsakeypair PKI
+!
+
+crypto pki certificate chain PKI
+ certificate ca 01
+  3082031E 30820206 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030 
+  20311E30 1C060355 04031315 726F6F74 2E636C6F 7564322E 6C6F6361 6C2E6F72 
+  <--truncated-->660C 3D89A643 B84EEE8E A0A091F2 
+  7963074F 33F677F5 B7A1C3D3 67DF9967 D08AF86A E052BEFA CCA08557 6E4D851F 
+  B26093C1 2A9F7E37 85D006AD AAD77E4F AE31879F D6F51240 402B3787 A2F3FC2B 2153
+  quit
+!
+diagnostic bootup level minimal
+memory free low-watermark processor 71464
+!
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+interface GigabitEthernet1
+ no shutdown
+ ip address 39.1.255.123 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 39.1.255.254
+!
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login
+ transport input ssh
+!
+ntp master 5
+ntp server pool.ntp.org
+!
+!
+!
+!
+!
+end
