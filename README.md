@@ -1,15 +1,15 @@
 # Overview notes
-updates:-</r>
-3/10/2026-</r>
-2 Validators-</r>
-3 controllers-</r>
-8 vEdge Routers - to be configured-</r>
-1 Linux DNS server-</r>
+updates:-</br>
+3/10/2026-</br>
+2 Validators-</br>
+3 controllers-</br>
+8 vEdge Routers - to be configured-</br>
+1 Linux DNS server-</br>
 
-EVE-NG Pro 2026, 256GB RAM, 1.7 TB hard disk, 2.5GB-10 GB network.-</r>
-Bare-metal install Ubuntu 24. x.x-</r>
+EVE-NG Pro 2026, 256GB RAM, 1.7 TB hard disk, 2.5GB-10 GB network.-</br>
+Bare-metal install Ubuntu 24. x.x-</br>
 
-Cisco SD-WAN devices 20.16.x and vEdges 17.16.01 worked best.-</r>
+Cisco SD-WAN devices 20.16.x and vEdges 17.16.01 worked best.-</br>
 
 
 
