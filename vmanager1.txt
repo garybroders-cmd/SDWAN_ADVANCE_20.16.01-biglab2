@@ -1,0 +1,96 @@
+
+system
+ host-name             vmanager1
+ system-ip             101.101.101.1
+ site-id               101
+ admin-tech-on-failure
+ no vrrp-advt-with-phymac
+ sp-organization-name  cloud2
+ organization-name     cloud2
+ vbond validator.cloud2.local.org
+ aaa
+  auth-order      local radius tacacs
+  usergroup all
+  !
+  usergroup basic
+   task system read
+   task interface read
+  !
+  usergroup global
+  !
+  usergroup netadmin
+  !
+  usergroup network_operations
+   task system read
+   task interface read write
+   task policy read write
+   task routing read write
+  !
+  usergroup operator
+   task system read
+   task interface read
+   task policy read
+   task routing read
+   task security read
+  !
+  usergroup security_operations
+   task system read
+   task interface read
+   task routing read
+   task security read write
+  !
+  usergroup tenantadmin
+  !
+  user admin
+   password #####  !
+  ciscotacro-user true
+  ciscotacrw-user true
+  lockout-policy
+   lockout-interval 0
+   fail-interval    60
+   fail-attempts    5
+  !
+ !
+ logging
+  disk
+   enable
+  !
+ !
+ ssh-server
+  cipher aes-128-192
+ !
+ ntp
+  parent
+   enable
+   stratum 5
+  exit
+  server 39.1.255.123
+   version 4
+   prefer
+  exit
+ !
+!
+vpn 0
+ dns 39.1.255.253 primary
+ interface eth0
+  ip address 39.1.255.1/24
+  ipv6 dhcp-client
+  tunnel-interface
+   color public-internet
+   allow-service all
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ ip route 0.0.0.0/0 39.1.255.254
+!
+vpn 512
+!
+vmanager1#
