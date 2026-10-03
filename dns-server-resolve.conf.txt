@@ -1,0 +1,4 @@
+search cloud2.local.org
+nameserver 39.1.255.253
+nameserver 127.0.0.1
+nameserver 1.1.1.1
