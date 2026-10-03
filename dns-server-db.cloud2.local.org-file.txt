@@ -1,0 +1,28 @@
+! vi /etc/bind/db.cloud2.local.org
+
+$TTL 3600
+
+@       IN SOA ns1.cloud2.local.org. admin.cloud2.local.org. (
+        2026100201
+        3600
+        1800
+        604800
+        86400 )
+@       IN NS ns1.cloud2.local.org.
+
+ns1 IN A 39.1.255.253
+
+validator IN A 39.1.255.2
+validator IN A 40.1.255.4
+!
+! ha-proxy 
+!
+validator-vip IN A 39.1.255.252
+
+validator.cloud2.local.org IN A 39.1.255.252
+validator.cloud2.local.org IN A 40.1.255.4
+validatori-vip.cloud2.local.org IN A 39.1.255.252
+
+vmanager1 IN A 39.1.255.1
+
+vbond IN A 39.1.255.3
