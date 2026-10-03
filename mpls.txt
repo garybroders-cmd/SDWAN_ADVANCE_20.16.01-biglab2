@@ -1,0 +1,62 @@
+!
+! Last configuration change at 17:16:28 gmt Fri Oct 2 2026
+! NVRAM config last updated at 17:15:48 gmt Fri Oct 2 2026
+!
+hostname mpls
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+clock timezone gmt 1 0
+!
+!
+!
+ip name-server 39.1.255.253
+ip cef
+no ipv6 cef
+!
+interface Loopback0
+ no shutdown
+ ip address 172.16.0.2 255.255.255.255
+ ip ospf 1 area 0
+!
+interface GigabitEthernet0/0
+ no shutdown
+ ip address 40.1.255.254 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ no shutdown
+ ip address 10.1.255.2 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router ospf 1
+ router-id 172.16.0.2
+ network 10.1.255.0 0.0.0.3 area 0
+ network 40.1.255.0 0.0.0.255 area 0
+ network 172.16.0.2 0.0.0.0 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 10.1.255.1
+!
+!
+!
+no scheduler allocate
+ntp server 39.1.255.123
+!
+
