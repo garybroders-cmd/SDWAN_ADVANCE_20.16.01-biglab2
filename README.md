@@ -26,10 +26,10 @@ database url flash:</r>
 database level complete</r>
 
 
-issuer-name cn=root.biglab2.local</r>
+issuer-name cn=root.cloud2.local.org</br>
 
 hash sha256</r>
-database archieve pkcs12 password Cisco!23</r>
+database archieve pkcs12 password C#####</br>
 grant auto<r>
 no shut<r>
 wr mem</r>
