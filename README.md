@@ -37,6 +37,8 @@ wr mem</br>
 
 cert-server#crypto pki server PKI request pkcs10 terminal</r>
 
+
+! Output </br>
 %PKCS10 request in base64 or pem</r>
 
 % Enter Base64 encoded or PEM formatted PKCS10 enrollment request.</r>
