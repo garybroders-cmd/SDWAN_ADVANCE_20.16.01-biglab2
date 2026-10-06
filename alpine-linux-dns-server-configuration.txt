@@ -92,5 +92,8 @@ named-checkzone cloud2.local /etc/bind/db.cloud2.local
   rc-service named restart
 
 
+ >>> test <<<
+dig validator.cloud2.local
+
   
   
