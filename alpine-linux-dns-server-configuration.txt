@@ -90,5 +90,7 @@ named-checkzone cloud2.local /etc/bind/db.cloud2.local
   
   service hostname restart
   rc-service named restart
+
+
   
   
