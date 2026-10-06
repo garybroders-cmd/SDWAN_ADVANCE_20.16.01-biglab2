@@ -1,0 +1,91 @@
+>>>> Install the packages below on the Linux Alpine EVE-NG QCOW2 image <<<<
+
+apk update
+apk add bind bind-tools
+
+>>>> First, configure the Linux interface eth0 <<<<<
+>>>> vi /etc/network/interfaces <<<<<
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+  address 39.1.255.222
+  netmask 255.255.255.0
+  gateway 39.1.255.254
+
+
+>>>> create dns resover <<<<<
+>>>> vi /etc/resolv.conf <<<<<
+
+search cloud2.local
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+  
+>>>> make this into a DNS server forwarder and lookup DNS server <<<<<
+>>>> vi /etc/bind/named.conf <<<<<<
+
+options {
+directory "/var/bind";
+  recursion yes;
+  allow-recursion { any; };
+  forwarders {
+    8.8.8.8;
+    1.1.1.1;
+  };
+forward only;
+
+listen-on { any; };
+listen-on-v6 { any; };
+rrset-order {
+order cyclic;
+};
+};
+
+zone "cloud2.local" {
+  type master;
+  file "/etc/bind/db.cloud2.local";
+  };
+
+>>>> check the file is correct before restarting <<<<<
+
+named-checkconf
+named-checkzone cloud2.local /etc/bind/db.cloud2.local
+
+  
+  >>>>> create dns loomup file  <<<<<
+  >>>>> vi /etc/bind/db.cloud2.local <<<<<
+  
+  
+  $TTL 60
+  
+  @ IN SOA dns.cloud2.local. admin.cloud2.local. (
+    2026100401 ; serial
+    3600 ; refresh
+    900 ; retry
+    604800 ; expire
+    60 ) ; minimum
+    
+  @ IN NS dns.cloud2.local.
+  
+  dns IN A 39.1.255.222
+  
+  validator IN A 39.1.255.2
+  validator IN A 39.1.255.2
+  
+  vbond IN A 101.101.101.2
+  vbond IN A 101.101.101.3
+  
+  vsmart1 IN A 101.101.101.4
+  vsmart2 IN A 101.101.101.5
+  
+  vmanage IN A 101.101.101.10
+  
+  
+  >>>> Restarting services <<<<
+  
+  service hostname restart
+  rc-service named restart
+  
+  
