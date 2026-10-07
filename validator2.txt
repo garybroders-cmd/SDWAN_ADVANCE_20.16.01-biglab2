@@ -1,13 +1,13 @@
-
 system
- host-name               validator2
+ host-name               validator-2
  system-ip               202.202.202.4
+ site-id                 202
  admin-tech-on-failure
  no route-consistency-check
  no vrrp-advt-with-phymac
  sp-organization-name    cloud2
  organization-name       cloud2
- vbond validator.cloud2.local.org local
+ vbond 40.1.255.4 local
  aaa
   auth-order      local radius tacacs
   usergroup basic
@@ -26,7 +26,7 @@ system
   usergroup tenantadmin
   !
   user admin
-   password #####
+   password $6$fb941f63b4c1f696$afca06JucPAOgQhie8qNHY0pjpmfliwN6m59nKPdpYlVv..Rm55W.t4KIes.GM7a6yMaJTlEH2dQ1H0.n49c4/
   !
   ciscotacro-user true
   ciscotacrw-user true
@@ -41,30 +41,28 @@ system
    enable
    stratum 5
   exit
-  server 39.1.255.123
+  server 0.uk.pool.ntp.org
    version 4
-   prefer
   exit
  !
 !
 omp
  no shutdown
  graceful-restart
- advertise connected
- advertise static
-!
-security
- ipsec
-  integrity-type ip-udp-esp esp
- !
 !
 vpn 0
- dns 39.1.255.253 primary
+ dns 39.1.255.222 primary
+ interface eth0
+  ip dhcp-client
+  ipv6 dhcp-client
+  no shutdown
+ !
  interface ge0/0
   ip address 40.1.255.4/24
   ipv6 dhcp-client
   tunnel-interface
    encapsulation ipsec
+   color mpls
    allow-service all
    no allow-service bgp
    allow-service dhcp
@@ -82,9 +80,5 @@ vpn 0
  ip route 0.0.0.0/0 40.1.255.254
 !
 vpn 512
- interface eth0
-  ip dhcp-client
-  ipv6 dhcp-client
-  no shutdown
- !
 !
+validator-2#
