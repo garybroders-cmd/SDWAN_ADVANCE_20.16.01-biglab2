@@ -6,7 +6,7 @@ system
  no vrrp-advt-with-phymac
  sp-organization-name  cloud2
  organization-name     cloud2
- vbond validator.cloud2.local.org
+ vbond validator.cloud2.local
  aaa
   auth-order      local radius tacacs
   usergroup basic
@@ -25,7 +25,7 @@ system
   usergroup tenantadmin
   !
   user admin
-   password ######
+   password $6$2c2bf6767df049ad$g4vLljzeictvULM7rke1fEAlWShQBkuUPiTq3Hx8I/0h2KKeSy5YQXzye.96R54qbgHlBaAhyAcYaOWxlJzC90
   !
   ciscotacro-user true
   ciscotacrw-user true
@@ -40,8 +40,9 @@ system
    enable
    stratum 5
   exit
-  server 39.1.255.123
+  server 0.uk.pool.ntp.org
    version 4
+   prefer
   exit
  !
 !
@@ -55,12 +56,11 @@ omp
  outbound-policy-caching
 !
 vpn 0
- dns 39.1.255.253 primary
+ dns 39.1.255.222 primary
  interface eth0
   ip address 40.1.255.3/24
   ipv6 dhcp-client
   tunnel-interface
-   color mpls
    allow-service all
    allow-service dhcp
    allow-service dns
@@ -76,3 +76,4 @@ vpn 0
 !
 vpn 512
 !
+controller3#
