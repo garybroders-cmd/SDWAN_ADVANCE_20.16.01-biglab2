@@ -1,4 +1,3 @@
-
 system
  host-name             vmanager1
  system-ip             101.101.101.1
@@ -7,7 +6,7 @@ system
  no vrrp-advt-with-phymac
  sp-organization-name  cloud2
  organization-name     cloud2
- vbond validator.cloud2.local.org
+ vbond validator.cloud2.local
  aaa
   auth-order      local radius tacacs
   usergroup all
@@ -42,41 +41,32 @@ system
   usergroup tenantadmin
   !
   user admin
-   password #####  !
+   password $6$42a54d4d7565f369$CLaMiKwtPEBDDnuJ80Dcuc.H7MqptaalrRikz1s4hcjwbz1VNfos8p17h5r5L/0SJnmsKtVxxNEpQ9NJQfANO0
+  !
   ciscotacro-user true
   ciscotacrw-user true
-  lockout-policy
-   lockout-interval 0
-   fail-interval    60
-   fail-attempts    5
-  !
  !
  logging
   disk
    enable
   !
  !
- ssh-server
-  cipher aes-128-192
- !
  ntp
   parent
    enable
    stratum 5
   exit
-  server 39.1.255.123
+  server 0.uk.pool.ntp.org
    version 4
-   prefer
   exit
  !
 !
 vpn 0
- dns 39.1.255.253 primary
+ dns 39.1.255.222 primary
  interface eth0
   ip address 39.1.255.1/24
   ipv6 dhcp-client
   tunnel-interface
-   color public-internet
    allow-service all
    allow-service dhcp
    allow-service dns
@@ -93,4 +83,3 @@ vpn 0
 !
 vpn 512
 !
-vmanager1#
