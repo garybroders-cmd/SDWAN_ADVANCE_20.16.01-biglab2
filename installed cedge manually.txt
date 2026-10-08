@@ -1,0 +1,168 @@
+from windows copy pkliCA.pem file to vmanager vshell
+
+scp pkiCA.pem admin@39.1.255.1:/home/admin/pkiCA.pem
+
+
+copy router pkiCA from router to vmanager /home/admn (default)
+
+scp pkiCA.pem admin@39.1.255.1:/home/admin
+ 
+
+ls -l on vmanagerf vshell console to check if the file is there
+
+Install this file locally on the server and others as well
+
+request root-cert-chain install /home/admin/pkiCA.pem
+
+Then copy the the validator
+
+from validator vshell
+
+scp admin@39.1.255.1:/home/admin/pkiCA.pem .
+
+request root-cert-chain install /home/admin/pkiCA.pem
+
+show certificate root-ca-cert
+
+
+
+
+Configure the cEdge router manually for SDWAN.
+
+controller-mode enable
+
+change password for vedge
+
+
+! This will turn off %SMART_LIC-2-PLATFORM_ERROR:
+
+config-transaction
+no license smart privacy
+license smart transport off
+no logging console
+commit
+
+configure the system properties for the edge
+ip address
+routing etc.
+sdwam
+copy the pki.CA.pem certificate from vmanager to the router bootflash 
+
+Edge1#copy scp: bootflash:
+Address or name of remote host []? 39.1.255.1
+Source username [admin]?
+Source filename []?/home/admin/pkiCA.pem
+Destination filename [pkiCA.pem]?
+%Warning:There is a file already existing with this name
+Do you want to overwrite? [confirm]AC
+Edge1#copy scp: bootflash:
+Address or name of remote host []? 39.1.255.101
+Source username [admin]?
+Source filename [/home/admin/pkiCA.pem]?
+Destination filename [pkiCA.pem]? bootflash:/sdwan/pkiCA.pem
+
+See below!!
+
+cEdge1#copy scp: bootflash:
+Address or name of remote host? 39.1.255.1
+Source username? admin
+Source filename? /home/admin/pkiCA.pem
+Destination filename? bootflash:/sdwan/pkiCA.pem
+Password:
+scp: debug1: fd 3 clearing O_NONBLOCK
+Sending file modes: C0644 1162 pkiCA.pem
+! scp: debug1: fd 1 clearing O_NONBLOCK
+ 
+1162 bytes copied in 4.845 secs (240 bytes/sec)
+cEdge1#
+Show more lines
+
+all infor should be stored here.
+
+install the new certificate on the device.
+
+request platform software sdwan root-cert-chain install bootflash:/sdwan/pkiCA.pem
+
+
+cEdge1#dir bootflash:sdwan/
+Directory of bootflash:sdwan/
+
+31      -rw-             1162   Oct 4 2026 17:34:39 +01:00  pkiCA.pem
+239     -rw-               15   Oct 4 2026 15:58:29 +01:00  .init_stage
+43      -rw-               31   Oct 4 2026 15:58:29 +01:00  device_green_state
+38      -rw-                0   Oct 4 2026 15:54:31 +01:00  day0_oper.xml
+80      drwx             4096   Oct 4 2026 14:41:45 +01:00  usercfg
+146     drwx             4096   Oct 4 2026 14:41:45 +01:00  log
+81      drwx             4096   Oct 4 2026 14:41:45 +01:00  usr
+84      drwx             4096   Oct 4 2026 14:41:45 +01:00  etc
+
+5173313536 bytes total (3551719424 bytes free)
+
+cEdge1#$request platform software sdwan root-cert-chain install bootflash:/sdwan/pkiCA.pem
+>>>> Output <<<<
+Uploading root-ca-cert-chain via VPN 0
+Changing ownership of vedge_certs to binos...
+Changing ownership of /usr/share/viptela/backup_certs to binos.
+Copying /bootflash//sdwan/pkiCA.pem to /tmp/vconfd/root-ca.crt.tmp via VPN 0
+Changing ownership of /usr/share/viptela/backup_certs to binos.
+Moving /tmp/vconfd/root-ca.crt.tmp to /usr/share/viptela/root-ca.crt via VPN 0
+Updating the root certificate chain..
+send_install_root_ca_crt_chain_notification
+Successfully installed the root certificate chain
+Successfully installed the root certificate chain
+
+cEdge1#show sdwan certificate root-ca-cert
+Certificate:
+	Data:
+		Version: 3 (0x2)
+		Serial Number: 1 (0x1)
+		Signature Algorithm: sha256WithRSAEncryption
+		Issuer: CN = root.cloud2.local.org
+		Validity
+			Not Before: Oct  2 13:20:50 2026 GMT
+			Not After : Oct  1 13:20:50 2029 GMT
+		Subject: CN = root.cloud2.local.org
+		Subject Public Key Info:
+			Public Key Algorithm: rsaEncryption
+				RSA Public-Key: (2048 bit)
+				Modulus:
+					00:ba:ba:a5:e0:57:91:28:d8:e2:b6:25:b7:28:12:
+					6f:dd:66:f3:1e:d4:21:30:2e:ea:0b:39:7b:2f:aa:
+					1c:1e:1a:e6:19:a5:5c:ab:1d:0e:c4:72:a5:ea:92:
+					
+show sdwan running-config
+
+
+sho local properties
+
+
+
+on the validator to see what vedges are validated
+
+show orchestrator valid-vedges
+tail -f /var/log/vdebug
+
+>>>> if there are no devices shown then validate the PAYG in the WAN Edge List
+
+validator1# show orchestrator valid-vedges
+
+>>>> Output <<<<<<
+% No entries found.
+validator1# show orchestrator valid-vedges
+orchestrator valid-vedges C8K-PAYG-A32-6328-4D62-ACE0-E5AF48F22895
+ serial-number                    6159702d530546c7bd66dfe9f55c13db
+ validity                         valid
+ org                              cloud2
+ hardware-installed-serial-number N/A
+ subject-serial-number            N/A
+
+
+request platform software sdwan vedge_cloud activate chassis-number {} toekn {}
+
+
+
+request platform software sdwan vedge_cloud activate chassis-number C8K-PAYG-cb7-dd8c-4b75-8e02-df6cd12546f7 token a252d142d57f42e7a7564b1acf68ecdc
+
+
+request platform software sdwan vedge_cloud activate chassis-number C8K-PAYG-cb7-dd8c-4b75-8e02-df6cd12546f7 token a252d142d57f42e7a7564b1acf68ecdc
+
