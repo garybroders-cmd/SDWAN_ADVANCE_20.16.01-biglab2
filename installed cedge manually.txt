@@ -20,9 +20,18 @@ from validator vshell
 
 scp admin@39.1.255.1:/home/admin/pkiCA.pem .
 
+
+
+------------------------------------
+
+>>> Install the root-ca certificate created on the router ca-server from home/admin to the validator, vManager, or controller to make this the root certificate <<<<
+>>> This was copied from the above <<<<
+
 request root-cert-chain install /home/admin/pkiCA.pem
 
 show certificate root-ca-cert
+
+------------------------------------
 
 
 
