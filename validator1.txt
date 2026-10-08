@@ -56,7 +56,6 @@ vpn 0
   ip address 39.1.255.2/24
   tunnel-interface
    encapsulation ipsec
-   color public-internet
    allow-service all
    no allow-service bgp
    allow-service dhcp
@@ -75,4 +74,4 @@ vpn 0
 !
 vpn 512
 !
-validator1#  
+validator1#      
