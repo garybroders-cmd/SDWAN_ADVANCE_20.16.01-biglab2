@@ -62,7 +62,6 @@ vpn 0
   ipv6 dhcp-client
   tunnel-interface
    encapsulation ipsec
-   color mpls
    allow-service all
    no allow-service bgp
    allow-service dhcp
@@ -81,4 +80,4 @@ vpn 0
 !
 vpn 512
 !
-validator-2#
+validator-2# 
