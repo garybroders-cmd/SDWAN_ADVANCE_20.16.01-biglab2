@@ -1,6 +1,8 @@
 !
-! Last configuration change at 17:16:28 gmt Fri Oct 2 2026
-! NVRAM config last updated at 17:15:48 gmt Fri Oct 2 2026
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
 !
 hostname mpls
 !
@@ -9,54 +11,78 @@ boot-end-marker
 !
 !
 !
-no aaa new-model
-!
-!
-!
-clock timezone gmt 1 0
-!
-!
-!
-ip name-server 39.1.255.253
-ip cef
-no ipv6 cef
 !
 interface Loopback0
  no shutdown
- ip address 172.16.0.2 255.255.255.255
- ip ospf 1 area 0
+ ip address 172.16.255.2 255.255.255.255
+ ip ospf 1 area 1
 !
 interface GigabitEthernet0/0
  no shutdown
- ip address 40.1.255.254 255.255.255.0
+ ip address 10.10.10.1 255.255.255.252
+ ip ospf 1 area 0
  duplex auto
  speed auto
  media-type rj45
 !
 interface GigabitEthernet0/1
  no shutdown
- ip address 10.1.255.2 255.255.255.252
+ ip address 51.2.254.2 255.255.255.252
  ip ospf 1 area 0
  duplex auto
  speed auto
  media-type rj45
 !
+interface GigabitEthernet0/2
+ no shutdown
+ ip address 71.1.255.2 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/3
+ no shutdown
+ ip address 51.1.254.1 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/4
+ no shutdown
+ ip address 51.3.254.1 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+!
+!
+interface GigabitEthernet0/11
+ no shutdown
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
 router ospf 1
- router-id 172.16.0.2
- network 10.1.255.0 0.0.0.3 area 0
- network 40.1.255.0 0.0.0.255 area 0
- network 172.16.0.2 0.0.0.0 area 0
+ router-id 172.16.255.2
+ log-adjacency-changes detail
+ auto-cost reference-bandwidth 100000
+ network 10.10.10.0 0.0.0.3 area 0
+ network 51.1.254.0 0.0.0.3 area 0
+ network 51.3.254.0 0.0.0.3 area 0
+ network 52.1.254.0 0.0.0.3 area 0
+ network 52.2.254.0 0.0.0.3 area 0
+ network 71.1.255.0 0.0.0.3 area 0
 !
 ip forward-protocol nd
 !
 !
 no ip http server
 no ip http secure-server
-ip route 0.0.0.0 0.0.0.0 10.1.255.1
+ip route 0.0.0.0 0.0.0.0 10.10.10.2
 !
 !
-!
-no scheduler allocate
-ntp server 39.1.255.123
-!
-
+end
